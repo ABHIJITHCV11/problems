@@ -14,7 +14,7 @@
 
 ### How we arrived at the time complexity
 
-First pass — the "trust me" version: three nested loops (`i`, `j`, `k`), and `k`'s work grows proportionally with the window size `(j - i)`. So it's not just `n × n × n` from three loops blindly stacked — the inner loop's cost itself scales with how far apart `i` and `j` are. That intuition alone gets you to "it's roughly n³," but it's not rigorous — it doesn't say why it's exactly cubic and not, say, quadratic-log or something else entirely.
+First pass — the "trust me" version: three nested loops (`i`, `j`, `k`), and `k`'s work grows proportionally with the window size (j - i). So it's not just `n × n × n` from three loops blindly stacked — the inner loop's cost itself scales with how far apart `i` and `j` are. That intuition alone gets you to "it's roughly n³," but it's not rigorous — it doesn't say why it's exactly cubic and not, say, quadratic-log or something else entirely.
 
 **Digging deeper (deriving)**
 
@@ -22,25 +22,25 @@ First pass — the "trust me" version: three nested loops (`i`, `j`, `k`), and `
 
 The 7-step derivation:
 
-1. **What are we ultimately trying to find?** 
-For a fixed gap `d`, we want to know: how many pairs `(i, j)` have exactly this gap?
-2. **Why does counting `i` answer that question?** 
-Every pair with gap `d` looks like `(i, i+d)` — once you pick `i`, `j` is automatically `i+d`. So each valid choice of `i` gives exactly one pair. That means the number of valid `i` values = the number of pairs with gap `d`. This is the whole reason we're about to count `i` — it's a stand-in for counting pairs.
-3. **What makes an `i` "valid"?** 
-`i` needs two things to be true:
+1. **What are we ultimately trying to find?**  
+   For a fixed gap `d`, we want to know: how many pairs `(i, j)` have exactly this gap?
+2. **Why does counting `i` answer that question?**  
+   Every pair with gap `d` looks like `(i, i+d)` — once you pick `i`, `j` is automatically `i+d`. So each valid choice of `i` gives exactly one pair. That means the number of valid `i` values = the number of pairs with gap `d`. This is the whole reason we're about to count `i` — it's a stand-in for counting pairs.
+3. **What makes an `i` "valid"?**  
+   `i` needs two things to be true:
    - `i ≥ 0` (it's a string index, can't be negative) — lower bound.
    - `j = i + d` must also be a valid index, meaning `j ≤ n-1`. Substituting: `i + d ≤ n-1`, so `i ≤ n-1-d` — upper bound.
-4. **So `i` can be any whole number between these two bounds.** 
-Lower bound: `0`. Upper bound: `n-1-d`.
-5. **Count how many whole numbers fit between them (inclusive).** 
-Using the inclusive-counting rule (`upper − lower + 1`):
+4. **So `i` can be any whole number between these two bounds.**  
+   Lower bound: `0`. Upper bound: `n-1-d`.
+5. **Count how many whole numbers fit between them (inclusive).**  
+   Using the inclusive-counting rule (`upper − lower + 1`):
    ```
    (n-1-d) - 0 + 1
    ```
-6. **Simplify.** 
-Subtracting `0` changes nothing: `(n-1-d) + 1 = n - d`.
-7. **Conclusion.** 
-Count of valid `i` values = `n - d`. Since each `i` = one pair, **count of pairs with gap `d` = `n - d`.**
+6. **Simplify.**  
+   Subtracting `0` changes nothing: `(n-1-d) + 1 = n - d`.
+7. **Conclusion.**  
+   Count of valid `i` values = `n - d`. Since each `i` = one pair, **count of pairs with gap `d` = `n - d`.**
 
 *Using that — total work across all gaps:*
 
