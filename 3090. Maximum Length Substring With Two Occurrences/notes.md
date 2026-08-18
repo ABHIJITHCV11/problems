@@ -96,7 +96,7 @@ O(n³)
 
 That's the complete summation, done.
 
-#### 1.1.5 Proof vs. Solution?
+### 1.2 Proof vs. Solution?
 
 Good distinction to ask about — they're related but not identical.
 - This is a *derivation* — we started from the problem's structure and mechanically built up to a formula, checking it against real numbers along the way. It's rigorous, but it's not framed as a formal mathematical proof (which would typically use more formal notation, induction, or explicit justification for every algebraic step).
