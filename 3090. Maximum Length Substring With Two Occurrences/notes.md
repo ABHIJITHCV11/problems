@@ -12,15 +12,17 @@
 
 *1.maximumLengthSubstring.py*
 
-### How we arrived at the time complexity
+### 1.1 How We Arrived at the Time Complexity
+
+#### 1.1.1 Initial Intuition
 
 First pass — the "trust me" version: three nested loops (`i`, `j`, `k`), and `k`'s work grows proportionally with the window size (j - i). So it's not just `n × n × n` from three loops blindly stacked — the inner loop's cost itself scales with how far apart `i` and `j` are. That intuition alone gets you to "it's roughly n³," but it's not rigorous — it doesn't say why it's exactly cubic and not, say, quadratic-log or something else entirely.
 
-**Digging deeper (deriving)**
+#### 1.1.2 Digging Deeper (Deriving)
 
-*Prerequisite — counting pairs with a fixed gap `d`:*
+#### 1.1.3 Prerequisite: Counting Pairs With a Fixed Gap `d`
 
-The 7-step derivation:
+#### 1.1.4 The 7-Step Derivation
 
 1. **What are we ultimately trying to find?**  
    For a fixed gap `d`, we want to know: how many pairs `(i, j)` have exactly this gap?
@@ -42,7 +44,7 @@ The 7-step derivation:
 7. **Conclusion.**  
    Count of valid `i` values = `n - d`. Since each `i` = one pair, **count of pairs with gap `d` = `n - d`.**
 
-*Using that — total work across all gaps:*
+#### 1.1.5 Total Work Across All Gaps
 
 Total work for one specific gap `d`: multiply count × cost:
 ```
@@ -84,7 +86,7 @@ O(n³)
 
 That's the complete summation, done.
 
-**Is this a "proof" or a "solution"?**
+#### 1.1.6 Proof vs. Solution?
 
 Good distinction to ask about — they're related but not identical.
 - This is a *derivation* — we started from the problem's structure and mechanically built up to a formula, checking it against real numbers along the way. It's rigorous, but it's not framed as a formal mathematical proof (which would typically use more formal notation, induction, or explicit justification for every algebraic step).
@@ -92,7 +94,7 @@ Good distinction to ask about — they're related but not identical.
 
 **Conclusion: O(n³).**
 
-### What I learned
+### 1.2 What I Learned
 
 **Main thing: `j - i + 1` counts elements, `j - i` counts gaps.**
 
@@ -106,7 +108,7 @@ Mixing these up is an easy off-by-one trap — anywhere you're counting "how man
 
 (My gf explained this distinction to me — gap vs. count — and it's what made the off-by-one logic finally click.)
 
-### Bug fix
+### 1.3 Bug Fix
 
 Fixed it defensively at first (`if k <= j and d1[s[k]] > 2:`), then traced through both ways the `while` loop could end and found this new guard always agreed with a flag (`s1`) I already had — fully redundant. Killed the redundant one. Lesson: two conditions that always evaluate the same way isn't extra safety, it's a second source of truth that can drift out of sync after a future refactor.
 
