@@ -10,7 +10,7 @@
 
 ## Approach 1: Brute Force
 
-*(code in `1. Iteration (Two Pass).py`)*
+*maximumLengthSubstring*
 
 ### How we arrived at the time complexity
 
