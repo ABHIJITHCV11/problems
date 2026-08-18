@@ -18,11 +18,21 @@
 
 First pass — the "trust me" version: three nested loops (`i`, `j`, `k`), and `k`'s work grows proportionally with the window size (j - i). So it's not just `n × n × n` from three loops blindly stacked — the inner loop's cost itself scales with how far apart `i` and `j` are. That intuition alone gets you to "it's roughly n³," but it's not rigorous — it doesn't say why it's exactly cubic and not, say, quadratic-log or something else entirely.
 
-#### 1.1.2 Digging Deeper (Deriving)
+#### 1.1.2 Prerequisite: Counting Pairs With a Fixed Gap `d`
 
-#### 1.1.3 Prerequisite: Counting Pairs With a Fixed Gap `d`
+**Main thing: `j - i + 1` counts elements, `j - i` counts gaps.**
 
-#### 1.1.4 The 7-Step Derivation
+These look almost the same but mean different things:
+- `j - i` = the *distance* between two indices — how many steps apart they are. This is a **gap**.
+- `j - i + 1` = the *number of elements* in the inclusive range `[i, j]` — this is a **count**.
+
+Example: if `i = 2` and `j = 5`, the elements are indices `2, 3, 4, 5` — that's 4 elements, and `5 - 2 + 1 = 4` ✅. But `5 - 2 = 3` is just the gap between them, not how many elements are there.
+
+Mixing these up is an easy off-by-one trap — anywhere you're counting "how many things are in this window," reach for `j - i + 1`, not `j - i`. Same idea as **taking away apples vs. counting apples** — one measures a difference, the other measures a quantity.
+
+(My gf explained this distinction to me — gap vs. count — and it's what made the off-by-one logic finally click.)
+
+#### 1.1.3 The 7-Step Derivation
 
 1. **What are we ultimately trying to find?**  
    For a fixed gap `d`, we want to know: how many pairs `(i, j)` have exactly this gap?
@@ -44,7 +54,7 @@ First pass — the "trust me" version: three nested loops (`i`, `j`, `k`), and `
 7. **Conclusion.**  
    Count of valid `i` values = `n - d`. Since each `i` = one pair, **count of pairs with gap `d` = `n - d`.**
 
-#### 1.1.5 Total Work Across All Gaps
+#### 1.1.4 Total Work Across All Gaps
 
 Total work for one specific gap `d`: multiply count × cost:
 ```
@@ -86,27 +96,13 @@ O(n³)
 
 That's the complete summation, done.
 
-#### 1.1.6 Proof vs. Solution?
+#### 1.1.5 Proof vs. Solution?
 
 Good distinction to ask about — they're related but not identical.
 - This is a *derivation* — we started from the problem's structure and mechanically built up to a formula, checking it against real numbers along the way. It's rigorous, but it's not framed as a formal mathematical proof (which would typically use more formal notation, induction, or explicit justification for every algebraic step).
 - If you wanted a formal *proof* that `Σd = n(n-1)/2`, for example, you'd typically prove it by mathematical induction — a structured technique: prove it's true for a base case (`n=1`), then prove that if it's true for `n`, it's true for `n+1`. That's a different, more formal exercise than what we did.
 
 **Conclusion: O(n³).**
-
-### 1.2 What I Learned
-
-**Main thing: `j - i + 1` counts elements, `j - i` counts gaps.**
-
-These look almost the same but mean different things:
-- `j - i` = the *distance* between two indices — how many steps apart they are. This is a **gap**.
-- `j - i + 1` = the *number of elements* in the inclusive range `[i, j]` — this is a **count**.
-
-Example: if `i = 2` and `j = 5`, the elements are indices `2, 3, 4, 5` — that's 4 elements, and `5 - 2 + 1 = 4` ✅. But `5 - 2 = 3` is just the gap between them, not how many elements are there.
-
-Mixing these up is an easy off-by-one trap — anywhere you're counting "how many things are in this window," reach for `j - i + 1`, not `j - i`. Same idea as **taking away apples vs. counting apples** — one measures a difference, the other measures a quantity.
-
-(My gf explained this distinction to me — gap vs. count — and it's what made the off-by-one logic finally click.)
 
 ### 1.3 Bug Fix
 
