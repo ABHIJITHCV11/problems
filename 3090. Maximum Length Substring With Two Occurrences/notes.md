@@ -162,3 +162,31 @@ This is exactly the intuition you already had — "incrementing l might not imme
 4. Termination: loop ends when r == len(s). At every point before that, max_length was only updated inside the growing branch — meaning it only ever captured window sizes that satisfied the invariant. So max_length is guaranteed to be the size of a valid window, and since every valid window was checked at some point (nothing skipped — r moves one step at a time), it's the maximum such window.
 
 That's the full correctness argument. Notice — no induction, no heavy notation, just: invariant → holds at start → preserved by both branches → conclusion follows from the exit condition. That's the level of rigor real interviews want, delivered conversationally.
+
+Your framing on the first part is exactly right — let's confirm it precisely, then tackle the second (bigger) question.
+
+Part 1 — shrinking, confirmed:
+
+When the window is invalid because s[r]'s count exceeds the limit, removing s[l]:
+
+If s[l] ≠ s[r]: the offending count (s[r]'s count) is untouched. Window is still invalid. Loop continues, l advances again.
+If s[l] == s[r]: you've just removed one of the actual duplicate occurrences. s[r]'s count drops. Window becomes valid again (or at least, that specific violation is resolved).
+
+And here's why you're guaranteed to eventually hit that second case: the offending duplicate of s[r] is physically sitting inside the window [l, r] somewhere — it has to be, that's why the count is too high. Since l only ever moves rightward, one step at a time, it's guaranteed to eventually walk into and remove that exact duplicate. It can't skip over it. So the shrink loop is guaranteed to terminate in a bounded number of steps, not run forever removing useless characters.
+
+Part 2 — your real question: how do we know we haven't missed a valid substring?
+
+This is the completeness argument, and it's genuinely the more important half of the proof — correctness of shrinking alone doesn't guarantee you've found the global maximum. Here's the reasoning:
+
+Claim: at every checkpoint (fixed r), the l your algorithm lands on is the smallest possible l such that [l, r] is still valid.
+
+Why: you only ever shrink when currently invalid, and you stop shrinking the instant it becomes valid again — not one step more, not one step less. So l isn't just "a" valid left boundary — it's the tightest one, the furthest left you could possibly go while keeping [l, r] valid.
+
+Why that's the key fact: for a fixed right end r, that window [l, r] — with l at its minimal value — is the longest possible valid substring that ends exactly at position r. Any smaller l (further left) would include the duplicate again and break validity. Any larger l would just be a shorter valid substring — not the maximum for that r.
+
+Now the completeness step: every substring in the entire string, valid or not, has some rightmost character — some specific index r. That means every possible valid substring is accounted for by exactly one r value, and for that r, your algorithm has already computed the longest valid substring ending there. So any given valid substring's length is automatically ≤ the value your algorithm computed for its own r.
+
+Since your loop visits every r from 0 to n-1 — not a sample, all of them — and takes the max valid-window-length at each one, you're guaranteed to have captured the true global maximum. You never had to explicitly check all O(n²) (l, r) pairs, because for each r, one number (the minimal l) dominates every other possible l for that same r — checking that one number is equivalent to having checked all of them.
+
+One-sentence version to keep in your back pocket for interviews: "For every ending position, sliding window finds the longest valid substring ending there — and since every substring has some ending position, checking all endings is equivalent to checking all substrings, without the O(n²) cost."
+
