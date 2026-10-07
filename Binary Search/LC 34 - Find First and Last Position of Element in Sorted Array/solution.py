@@ -1,9 +1,31 @@
-# first 8                         # last 8
-l, r = 0, len(nums)               l, r = 0, len(nums)
-while l < r:                      while l < r:
-    m = l + (r - l) // 2              m = l + (r - l) // 2
-    if nums[m] >= target:             if nums[m] > target:
-        r = m                             r = m
-    else:                             else:
-        l = m + 1                         l = m + 1
-return l                          return l - 1
+class Solution:
+    def searchRange(self, nums: list[int], target: int) -> list[int]:
+
+        def first_ge(target):
+            # first index where nums[i] >= target
+            l, r = 0, len(nums)
+            while l < r:
+                m = l + (r - l) // 2
+                if nums[m] >= target:
+                    r = m
+                else:
+                    l = m + 1
+            return l
+
+        def first_gt(target):
+            # first index where nums[i] > target
+            l, r = 0, len(nums)
+            while l < r:
+                m = l + (r - l) // 2
+                if nums[m] > target:
+                    r = m
+                else:
+                    l = m + 1
+            return l
+
+        start = first_ge(target)
+        if start == len(nums) or nums[start] != target:
+            return [-1, -1]
+
+        end = first_gt(target) - 1
+        return [start, end]
