@@ -4,10 +4,6 @@
 - https://leetcode.com/problems/search-insert-position/description/
 - keep n out of bound | nums[m] never goes out of bounds cause m is floored
 
-**35. Search Insert Position** · *Easy*
-- https://leetcode.com/problems/search-insert-position/
-- Locked in the boundary template: `while l < r`, `r = m`, `return l`
-
 **34. Find First and Last Position of Element in Sorted Array** · *Medium*
 - https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
 - Same template, used for first/last occurrence
