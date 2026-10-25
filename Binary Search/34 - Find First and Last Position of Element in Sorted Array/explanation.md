@@ -1,11 +1,4 @@
-this is to revice my Tempaltes later !
+https://www.youtube.com/watch?v=tgVSkMA8joQ&t=373s
 
-# first 8                         # last 8
-l, r = 0, len(nums)               l, r = 0, len(nums)
-while l < r:                      while l < r:
-    m = l + (r - l) // 2              m = l + (r - l) // 2
-    if nums[m] >= target:             if nums[m] > target:
-        r = m                             r = m
-    else:                             else:
-        l = m + 1                         l = m + 1
-return l                          return l - 1
+Figuring out something and being wromg about it is much better than
+seeing someone else code and making it pass the test cases
