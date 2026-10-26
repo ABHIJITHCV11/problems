@@ -1,7 +1,7 @@
 # Binary Search — Order
 
-**35. Search Insert Position** · *Easy*
-- https://leetcode.com/problems/search-insert-position/description/
+**[35. Search Insert Position](https://leetcode.com/problems/search-insert-position/description/)** · *Easy*
+- [Problem](https://leetcode.com/problems/search-insert-position/description/) · [Solution](./35.%20Search%20Insert%20Position/solution1_template.py)
 - keep n out of bound | nums[m] never goes out of bounds cause m is floored
 
 **34. Find First and Last Position of Element in Sorted Array** · *Medium*
