@@ -23,3 +23,6 @@
 **[81. Search in Rotated Sorted Array II](https://leetcode.com/problems/search-in-rotated-sorted-array-ii/description/)** · *Medium*
 - [Solution](./81.%20Search%20in%20Rotated%20Sorted%20Array%20II/solution.py)
 - Pivot with duplicates, protecting the pivot index *(1 hint)*
+
+**[875. Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/description/)** · *Medium*
+- [Solution]()
