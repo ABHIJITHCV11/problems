@@ -25,4 +25,4 @@
 - Pivot with duplicates, protecting the pivot index *(1 hint)*
 
 **[875. Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/description/)** · *Medium*
-- [Solution]()
+- [Solution](https://github.com/ABHIJITHCV11/problems/blob/main/Binary%20Search/875.%20Koko%20Eating%20Bananas/solution.py)
