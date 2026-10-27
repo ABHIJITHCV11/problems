@@ -13,6 +13,7 @@ class Solution:
         def days_needed(cap: int) -> int:
             # Greedy: load packages in order; if the next one doesn't fit,
             # ship today's load and start a new day with it.
+            
             # Safe because cap >= max(weights): every package fits in an empty ship.
             day_count, load = 1, 0
             for w in weights:
