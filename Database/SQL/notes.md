@@ -1,4 +1,4 @@
-# SQL Interview Practice Tracker
+# SQL Practice Tracker
 
 Questions from **DataVidhya** (12, from the [pattern video](https://www.youtube.com/watch?v=cGtPup-EwrM)), **StrataScratch** (69 free, 66 solved in the [walkthrough video](https://www.youtube.com/watch?v=6X0DvM5kPhw)) and **LeetCode SQL 50**, grouped by pattern.
 
