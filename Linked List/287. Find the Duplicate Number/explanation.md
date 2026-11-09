@@ -17,6 +17,8 @@
 
 ## 2. My variables (NeetCode's picture)
 
+![NeetCode diagram: p, C − x, x](image.png)
+
 - **p** = distance from start to the cycle start
 - **C** = cycle length
 - Slow and fast meet somewhere in the cycle
